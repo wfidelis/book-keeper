@@ -1,14 +1,5 @@
 from datetime import datetime
-from flask_sqlalchemy import SQLAlchemy
-import app
-
-#create a Flask object
-db = SQLAlchemy(app)
-
-
-#SQLAlchemy Database configuration
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://fidelis:jemaidah5@localhost/booksdb'
-app.config['SECRET_KEY'] = "x10\xcbb\x00\x94\xccA\xc8\x13\xfc\x89K"
+from app import db
 
 book_publisher = db.Table('book_publisher', 
                             db.Column('book_id', db.Column(db.Integer, db.ForeignKey('book_id'))),
@@ -28,7 +19,7 @@ class Book(db.Model):
     created_at = db.Column(db.DateTime)
     updated_at = db.Column(db.Datetime, onupdate=datetime.datetime.now)
     publisher = db.relationship('Publisher', secondary = book_publisher)
-    genre = db.relationship('Genre', secondary=book_genre)
+    genre = db.relationship('BookGenre', secondary=book_genre)
     series_id = db.Column(db.Integer, db.ForeignKey('series_id'))
 
 class Publisher(db.model):
@@ -44,6 +35,5 @@ class Series(db.model):
     title = db.Column(db.String(150))
     book = db.relationship('Book')
 
-
-
-
+# db.create_all()
+# db.session.commit()
