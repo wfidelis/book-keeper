@@ -2,3 +2,5 @@ flask
 flasgger
 flask-sqlalchemy
 python-dotenv
+mysql-connector-python
+mysqlclient
