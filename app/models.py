@@ -18,10 +18,10 @@ class Book(db.Model):
     language = db.Column(db.String(100))
     country = db.Column(db.String(100))
     read_count = db.Column(db.Integer)
-    created_at = db.Column(db.DateTime)
+    created_at = db.Column(db.DateTime, nullable = False, default = datetime.utcnow)
     updated_at = db.Column(db.DateTime, onupdate=datetime.now)
     publisher = db.relationship('Publisher', secondary = book_publisher)
-    genre = db.relationship('BookGenre', secondary=book_genre)
+    genre = db.relationship('Genre', secondary=book_genre)
     series_id = db.Column(db.Integer, db.ForeignKey('series.id'))
 
 class Publisher(db.Model):
